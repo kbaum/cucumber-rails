@@ -1,3 +1,5 @@
+require 'cucumber/rails/database'
+
 if defined?(ActiveRecord::Base)
   class ActiveRecord::Base
     class_attribute :shared_connection
@@ -7,11 +9,11 @@ if defined?(ActiveRecord::Base)
     end
   end
   
-  Before('@javascript') do
+  Before(Cucumber::Rails::Database.before_js_tags) do
     Cucumber::Rails::Database.before_js
   end
 
-  Before('~@javascript') do
+  Before(*Cucumber::Rails::Database.before_non_js_tags) do
     Cucumber::Rails::Database.before_non_js
   end
 end

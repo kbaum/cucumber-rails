@@ -31,6 +31,18 @@ module Cucumber
           @strategy.before_non_js
         end
 
+        def cucumber_rails_javascript_tags
+          ENV['cucumber_rails_javascript_tags'] || '@javascript'
+        end
+
+        def before_js_tags
+          cucumber_rails_javascript_tags
+        end
+
+        def before_non_js_tags
+          cucumber_rails_javascript_tags.split(',').collect{|tag| "~#{tag}"}
+        end
+
       private
 
         def map
